@@ -3,7 +3,7 @@ require 'sinatra'
 class RockPaperScissors < Sinatra::Base
 
     get '/' do
-        "Rock, Paper, Scissors"
+        erb(:index)
     end
 
 
