@@ -5,7 +5,9 @@
 <%= @game.current_player.name %>'s turn
 
 <form action=/play method=post>
-    <input type=submit value=Rock>
-    <input type=submit value=Paper>
-    <input type=submit value=Scissors>
+
+    <% @game.choices.each do |choice| %>
+        <input type=submit value=<%= choice %> name=choice>
+    <% end %>
+
 </form>

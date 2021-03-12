@@ -1,22 +1,27 @@
 require_relative 'player'
+Dir["./lib/choices/*.rb"].each {|file| require file }
 
 class Game
 
-    def self.create(player1:, player2:, player_class: Player)
-        @current_game = Game.new(player1: player_class.new(name: player1), player2: player_class.new(name: player2))
+    DEFAULT_CHOICES = [Rock, Paper, Scissors]
+
+    def self.create(player1:, player2:, player_class: Player, choices: DEFAULT_CHOICES)
+        @current_game = Game.new(player1: player_class.new(name: player1), player2: player_class.new(name: player2), choices: choices)
     end
 
     def self.current_game
         @current_game
     end
 
-    attr_reader :player1, :player2, :players, :current_player
+    attr_reader :player1, :player2, :players, :current_player, :choices
 
-    def initialize(player1:, player2:)
+
+    def initialize(player1:, player2:, choices:)
         @player1 = player1
         @player2 = player2
         @players = [player1, player2]
         @current_player = players.first
+        @choices = choices
     end
 
     def switch_turns
