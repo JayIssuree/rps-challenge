@@ -90,4 +90,16 @@ describe Game do
 
     end
 
+    describe '#next_round' do
+        
+        it 'resets the players choices for a new round' do
+            allow(player1).to receive(:choice).and_return(rock)
+            allow(player2).to receive(:choice).and_return(rock)
+            expect(player1).to receive(:reset_choice)
+            expect(player2).to receive(:reset_choice)
+            subject.next_round
+        end
+
+    end
+
 end

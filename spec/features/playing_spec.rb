@@ -32,4 +32,13 @@ describe "playing", type: :feature do
         expect(page).to have_content("Draw!")
     end
 
+    it "has the ability to play again at the end of a round" do
+        sign_in_and_play
+        click_button("Rock")
+        click_button("Rock")
+        expect(page).to have_button("Play again!")
+        click_button("Play again!")
+        expect(page).to have_content("Player 1's turn")
+    end
+
 end

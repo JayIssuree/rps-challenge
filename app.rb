@@ -30,6 +30,11 @@ class RockPaperScissors < Sinatra::Base
         erb(:finished)
     end
 
+    post '/reset' do
+        Game.current_game.next_round
+        redirect '/play'
+    end
+
 
     run! if app_file == $0
 

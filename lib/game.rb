@@ -48,5 +48,11 @@ class Game
     def draw?
         complete? && player1.choice == player2.choice
     end
+    
+    def next_round
+        players.each{ |player|
+            player.reset_choice
+        }
+    end
 
 end

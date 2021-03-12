@@ -4,4 +4,9 @@
     <% else %>
         <%= @game.winner.name %> wins!
     <% end %>
+
+    <form action='/reset' method=post>
+        <input type=submit value="Play again!">
+    </form>
+
 </h1>
