@@ -17,6 +17,11 @@ class RockPaperScissors < Sinatra::Base
         erb(:play)
     end
 
+    post '/play' do
+        Game.current_game.switch_turns
+        redirect '/play'
+    end
+
 
     run! if app_file == $0
 
