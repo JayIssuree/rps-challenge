@@ -1,3 +1,7 @@
 <h1>
-    <%= @game.winner.name %> wins!
+    <% if @game.draw? %>
+        Draw!
+    <% else %>
+        <%= @game.winner.name %> wins!
+    <% end %>
 </h1>

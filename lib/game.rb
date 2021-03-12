@@ -45,10 +45,8 @@ class Game
         true if player1.choice && player2.choice != nil
     end
 
-    private 
-
     def draw?
-        player1.choice == player2.choice
+        complete? && player1.choice == player2.choice
     end
 
 end

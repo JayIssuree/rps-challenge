@@ -80,4 +80,14 @@ describe Game do
 
     end
 
+    describe '#draw?' do
+        
+        it 'returns true if there is a draw' do
+            allow(player1).to receive(:choice).and_return(rock)
+            allow(player2).to receive(:choice).and_return(rock)
+            expect(subject).to be_draw
+        end
+
+    end
+
 end
