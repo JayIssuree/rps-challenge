@@ -30,4 +30,25 @@ class Game
         }.first
     end
 
+    def winner
+        return player1 if player1.choice.beats?(player2.choice)
+        return player2 if player2.choice.beats?(player1.choice)
+    end
+    
+    def get_choice(string)
+        choices.select{ |choice|
+            choice.name == string
+        }.first
+    end
+
+    def complete?
+        true if player1.choice && player2.choice != nil
+    end
+
+    private 
+
+    def draw?
+        player1.choice == player2.choice
+    end
+
 end

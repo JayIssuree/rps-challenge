@@ -19,11 +19,10 @@ describe "playing", type: :feature do
     end
 
     it "determines a winner" do
-        pending
         sign_in_and_play
         click_button("Rock")
         click_button("Paper")
-        expect(page).to have_content("Player 2 wins")
+        expect(page).to have_content("Player 2 wins!")
     end
 
 end

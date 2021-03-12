@@ -18,8 +18,16 @@ class RockPaperScissors < Sinatra::Base
     end
 
     post '/play' do
-        Game.current_game.switch_turns
+        game = Game.current_game
+        game.current_player.choose(game.get_choice(params["choice"]))
+        game.switch_turns
+        redirect '/finished' if game.complete?
         redirect '/play'
+    end
+
+    get '/finished' do
+        @game = Game.current_game
+        erb(:finished)
     end
 
 

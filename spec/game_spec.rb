@@ -6,9 +6,9 @@ describe Game do
     let(:player) { double :player }
     let(:player1) { double :player }
     let(:player2) { double :player }
-    let(:rock) { double :rock }
-    let(:paper) { double :paper }
-    let(:scissors) { double :scissors }
+    let(:rock) { double :rock, :name => "Rock" }
+    let(:paper) { double :paper, :name => "Paper" }
+    let(:scissors) { double :scissors, :name => "Scissors" }
     let(:choices) { [rock, paper, scissors] }
     let(:subject) { subject = Game.new(player1: player1, player2: player2, choices: choices) }
     
@@ -46,6 +46,36 @@ describe Game do
         
         it 'switches the turn of the current player' do
             expect{ subject.switch_turns }.to change{ subject.current_player }.from(player1).to(player2)
+        end
+
+    end
+
+    describe '#winner' do
+        
+        it 'determines the winner' do
+            allow(player1).to receive(:choice).and_return(rock)
+            allow(player2).to receive(:choice).and_return(paper)
+            allow(rock).to receive(:beats?).with(paper).and_return(false)
+            allow(paper).to receive(:beats?).with(rock).and_return(true)
+            expect(subject.winner).to eq(player2)
+        end
+
+    end
+
+    describe '#get_choice' do
+        
+        it 'returns the choice from a string' do
+            expect(subject.get_choice("Rock")).to eq(rock)
+        end
+
+    end
+
+    describe '#complete' do
+        
+        it 'returns true once both players have made a choice' do
+            allow(player1).to receive(:choice).and_return(rock)
+            allow(player2).to receive(:choice).and_return(paper)
+            expect(subject).to be_complete
         end
 
     end
