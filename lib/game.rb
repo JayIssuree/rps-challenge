@@ -1,12 +1,15 @@
 require_relative 'player'
+require_relative 'computer'
 Dir["./lib/choices/*.rb"].each {|file| require file }
 
 class Game
 
     DEFAULT_CHOICES = [Rock, Paper, Scissors]
 
-    def self.create(player1:, player2:, player_class: Player, choices: DEFAULT_CHOICES)
-        @current_game = Game.new(player1: player_class.new(name: player1), player2: player_class.new(name: player2), choices: choices)
+    def self.create(player1:, player2:, player_class: Player, computer_class: Computer, choices: DEFAULT_CHOICES)
+        player_1 = player_class.new(name: player1)
+        player_2 = player2 == "" ? computer_class.new : player_class.new(name: player2)
+        @current_game = Game.new(player1: player_1, player2: player_2, choices: choices)
     end
 
     def self.current_game
@@ -54,6 +57,14 @@ class Game
         players.each{ |player|
             player.reset_choice
         }
+    end
+
+    def random_choice
+        choices.sample
+    end
+
+    def computer_turn
+        current_player.choose(random_choice) if current_player.name == "Computer"
     end
 
 end

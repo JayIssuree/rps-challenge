@@ -38,7 +38,7 @@ describe "playing", type: :feature do
         click_button("Rock")
         expect(page).to have_button("Play again!")
         click_button("Play again!")
-        expect(page).to have_content("Player 1's turn")
+        expect(page).to have_content("Player 2's turn")
     end
 
     it "keeps track of the players score" do

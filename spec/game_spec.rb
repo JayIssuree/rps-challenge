@@ -4,18 +4,25 @@ describe Game do
 
     let(:player_class) { double :player_class, :new => player }
     let(:player) { double :player }
+    let(:computer_class) { double :computer_class, :new => computer }
+    let(:computer) { double :computer, :name => "Computer" }
     let(:player1) { double :player, :reset_choice => nil }
     let(:player2) { double :player, :reset_choice => nil }
     let(:rock) { double :rock, :name => "Rock" }
     let(:paper) { double :paper, :name => "Paper" }
     let(:scissors) { double :scissors, :name => "Scissors" }
     let(:choices) { [rock, paper, scissors] }
-    let(:subject) { subject = Game.new(player1: player1, player2: player2, choices: choices) }
+    let(:subject) { Game.new(player1: player1, player2: player2, choices: choices) }
     
     describe '.create' do
         
         it 'creates a new game instance' do
-            expect(Game.create(player1: "player1", player2: "player2", player_class: player_class, choices: choices)).to be_an_instance_of(Game)
+            expect(Game.create(player1: "player1", player2: "player2", player_class: player_class, computer_class: computer_class, choices: choices)).to be_an_instance_of(Game)
+        end
+
+        it 'creates a game instance with a computerized opponent' do
+            expect(Game.create(player1: "player1", player2: "", player_class: player_class, computer_class: computer_class, choices: choices)).to be_an_instance_of(Game)
+            expect(Game.current_game.player2).to eq(computer)
         end
 
     end
@@ -106,6 +113,22 @@ describe Game do
             expect(player1).to receive(:incriment_score)
             allow(subject).to receive(:winner).and_return(player1)
             subject.next_round
+        end
+
+    end
+
+    context "computer" do
+
+        it "chooses a random chioce" do
+            expect(subject.choices).to receive(:sample)
+            subject.random_choice
+        end
+
+        it "goes through all the notions when its the computers turn" do
+            subject = Game.new(player1: player1, player2: computer, choices: choices)
+            expect(computer).to receive(:choose)
+            subject.switch_turns
+            subject.computer_turn
         end
 
     end

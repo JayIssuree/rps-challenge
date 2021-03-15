@@ -21,6 +21,7 @@ class RockPaperScissors < Sinatra::Base
         game = Game.current_game
         game.current_player.choose(game.get_choice(params["choice"]))
         game.switch_turns
+        game.computer_turn
         redirect '/finished' if game.complete?
         redirect '/play'
     end
@@ -32,6 +33,7 @@ class RockPaperScissors < Sinatra::Base
 
     post '/reset' do
         Game.current_game.next_round
+        Game.current_game.switch_turns
         redirect '/play'
     end
 
