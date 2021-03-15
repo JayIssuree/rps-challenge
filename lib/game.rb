@@ -50,6 +50,7 @@ class Game
     end
     
     def next_round
+        winner.incriment_score unless draw?
         players.each{ |player|
             player.reset_choice
         }

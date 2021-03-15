@@ -11,6 +11,10 @@ describe Player do
             expect(subject.name).to eq("Rspec Player")
         end
 
+        it 'is initialized with a score of 0' do
+            expect(subject.score).to eq(0)
+        end
+
     end
 
     describe '#choose' do
@@ -26,6 +30,14 @@ describe Player do
         it 'resets the choice made' do
             subject.choose(rock)
             expect{ subject.reset_choice }.to change{ subject.choice }.from(rock).to(nil)
+        end
+
+    end
+
+    describe '#incriment_score' do
+        
+        it 'increases the score' do
+            expect{ subject.incriment_score }.to change{ subject.score }.by(1)
         end
 
     end

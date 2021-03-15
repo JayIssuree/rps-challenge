@@ -4,8 +4,8 @@ describe Game do
 
     let(:player_class) { double :player_class, :new => player }
     let(:player) { double :player }
-    let(:player1) { double :player }
-    let(:player2) { double :player }
+    let(:player1) { double :player, :reset_choice => nil }
+    let(:player2) { double :player, :reset_choice => nil }
     let(:rock) { double :rock, :name => "Rock" }
     let(:paper) { double :paper, :name => "Paper" }
     let(:scissors) { double :scissors, :name => "Scissors" }
@@ -97,6 +97,14 @@ describe Game do
             allow(player2).to receive(:choice).and_return(rock)
             expect(player1).to receive(:reset_choice)
             expect(player2).to receive(:reset_choice)
+            subject.next_round
+        end
+
+        it 'increases the score of the winner' do
+            allow(player1).to receive(:choice).and_return(rock)
+            allow(player2).to receive(:choice).and_return(scissors)
+            expect(player1).to receive(:incriment_score)
+            allow(subject).to receive(:winner).and_return(player1)
             subject.next_round
         end
 

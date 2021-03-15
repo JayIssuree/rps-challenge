@@ -15,4 +15,10 @@ describe "entering names", type: :feature do
         expect(page).to have_content('Player 1 vs Player 2')
     end
 
+    it "displays the number of wins of the player" do
+        sign_in_and_play
+        expect(page).to have_content('Player 1: 0')
+        expect(page).to have_content('Player 2: 0')
+    end
+
 end
